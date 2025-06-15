@@ -36,9 +36,12 @@ public class TaskService {
 
     public Optional<Task> updateTask(@RequestBody Task taskDetails, @PathVariable Long id) {
         return taskRepository.findById(id).map(task -> {
-            task.setTitle(taskDetails.getTitle());
-            task.setDescription(taskDetails.getDescription());
-            task.setStatus(taskDetails.getStatus());
+            if (taskDetails.getTitle() != null)
+                task.setTitle(taskDetails.getTitle());
+            if (taskDetails.getDescription() != null)
+                task.setDescription(taskDetails.getDescription());
+            if (taskDetails.getStatus() != null)
+                task.setStatus(taskDetails.getStatus());
             return taskRepository.save(task);
         });
 
